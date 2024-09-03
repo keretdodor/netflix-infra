@@ -5,7 +5,7 @@ metadata:
   labels:
     app: netflix-frontend-demo
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: netflix-frontend-demo
