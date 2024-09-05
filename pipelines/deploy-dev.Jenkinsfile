@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('Git Setup') {
             steps {             
-                sh 'git checkout -b dev || git checkout degit branch'
+                sh 'git checkout -b dev || git checkout degit dev'
             }
         }
         
