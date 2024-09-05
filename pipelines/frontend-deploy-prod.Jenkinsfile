@@ -18,8 +18,8 @@ pipeline {
         stage('Deploy and update YAML manifest') {
             steps {
                 sh ''' 
-                    cd k8s/${SERVICE_NAME}
-                    sed -i "s|image: .*|image: $IMAGE_FULL_NAME_PARAM|" netflix-frontend.yml
+                    cd k8s/prod/${SERVICE_NAME}
+                    sed -i "s|image: .*|image: $IMAGE_FULL_NAME_PARAM|" netflix-frontend-prod.yml
                     git add "netflix-frontend.yml"
                     git commit -m "Jenkins deploy and update $SERVICE_NAME $IMAGE_FULL_NAME_PARAM"
                 '''

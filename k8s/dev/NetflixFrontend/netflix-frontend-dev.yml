@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: netflix-frontend
+  name: netflix-frontend-dev
   labels:
-    app: netflix-frontend-demo
+    app: netflix-frontend-dev
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: netflix-frontend-demo
+      app: netflix-frontend-dev
   template:
     metadata:
         labels:
-          app: netflix-frontend-demo
+          app: netflix-frontend-dev
     spec:
       containers:
       - name: api
@@ -29,7 +29,7 @@ metadata:
   name: nextflix-frontend-service
 spec:
   selector:
-    app: netflix-frontend-demo
+    app: netflix-frontend-dev
   ports:
     - protocol: TCP
       port: 3000

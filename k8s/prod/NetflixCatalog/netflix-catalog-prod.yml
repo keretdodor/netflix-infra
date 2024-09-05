@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
-metadata:
-  name: netflix-catalog
+metadata:zz
+  name: netflix-catalog-prod
   labels:
-    app: netflix-catalog-demo
+    app: netflix-catalog-prod
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: netflix-catalog-demo
+      app: netflix-catalog-prod
   template:
     metadata:
         labels:
-          app: netflix-catalog-demo
+          app: netflix-catalog-prod
     spec:
       containers:
       - name: api
-        image: keretdodor/netflix-catalog:v1.0.5
+        image: keretdodor/netflix-catalog:latest
 
 ---
 
@@ -26,7 +26,7 @@ metadata:
   name: nextflix-catalog-service
 spec:
   selector:
-    app: netflix-catalog-demo
+    app: netflix-catalog-prod
   ports:
     - protocol: TCP
       port: 8080
