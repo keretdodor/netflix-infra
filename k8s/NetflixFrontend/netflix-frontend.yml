@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: api
-        image: keretdodor/netflix-frontend:v1.0.36
+        image: keretdodor/netflix-frontend:v1.0.37
         env:
           - name: MOVIE_CATALOG_SERVICE
             value: "http://nextflix-catalog-service:8080"
