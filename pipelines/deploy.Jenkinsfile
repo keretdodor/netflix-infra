@@ -26,7 +26,7 @@ pipeline {
         stage ('Push to github')
             steps {
                    withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')])
-                   git push https://$GITHUB_TOKEN@github.com/keretdodor/netflix-infra.git
+                   sh 'git push https://$GITHUB_TOKEN@github.com/keretdodor/netflix-infra.git'
 
             }
 
