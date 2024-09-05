@@ -42,6 +42,13 @@ pipeline {
                    * Setting global Git user.name and user.email in 'Manage Jenkins > System' is recommended.
                    * Setting Shell executable to `/bin/bash` in 'Manage Jenkins > System' is recommended.
                 */ 
+                
             }
+    post {
+        cleanup {
+            cleanWs()
         }
+    }    
+}
+
     
