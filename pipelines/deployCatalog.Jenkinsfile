@@ -18,6 +18,7 @@ pipeline {
         stage('Deploy and update YAML manifest') {
             steps {
                 sh ''' 
+                    echo $SERVICE_NAME
                     cd k8s/${SERVICE_NAME}
                     sed -i "s|image: .*|image: $IMAGE_FULL_NAME_PARAM|" netflix-catalog.yml
                     git add "netflix-catalog.yml"
