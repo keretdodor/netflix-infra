@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: api
-        image: keretdodor/netflix-catalog:latest
+        image: keretdodor/netflix-catalog-prod:v1.0.8
 
 ---
 
