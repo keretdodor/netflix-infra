@@ -1,6 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
-metadata:zz
+metadata:
   name: netflix-catalog-dev
   labels:
     app: netflix-catalog-dev
