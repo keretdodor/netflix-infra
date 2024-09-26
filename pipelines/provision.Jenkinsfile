@@ -7,7 +7,7 @@ pipeline {
         choice(name: 'WORKSPACE', choices: ['default', 'us-east-1'], description: '')
     }
     stages {
-        stage('terraform installation ') {
+        stage('Terraform Installation') {
             steps {
                 sh '''
                     terraform --version
@@ -15,29 +15,26 @@ pipeline {
             }
         }   
 
-        stage('initializing workspace') {
+        stage('Initializing Workspace') {
             steps {
                 sh '''
-                    terraform workspace select $WORKSPACE || terraform workspace new $WORKSPACE
+                    terraform workspace select "$WORKSPACE" || terraform workspace new "$WORKSPACE"
                 '''
             }
         }    
 
-        stage('auto-apply') {
+        stage('Auto-Apply') {
             steps {
-                withCredentials({usernamePassword(credentialsId: 'aws', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCEES_KEY')}) {
+                withCredentials([usernamePassword(credentialsId: 'aws', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                     sh '''
                     terraform init
                     if [ "$WORKSPACE" == "default" ]; then
                         WORKSPACE="eu-north-1"
                     fi
-                    cd tf
-                    terraform apply -auto-approve -var-file "regions.$WORKSPACE.$ENV.tfvars"
-                   
+                    cd tf && terraform apply -auto-approve -var-file "regions.$WORKSPACE.$ENV.tfvars"
                     '''
                 }
             }
         }
-
     }
 }
