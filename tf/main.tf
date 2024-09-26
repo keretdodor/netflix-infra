@@ -69,7 +69,6 @@ resource "aws_security_group" "netflix_app_sg" {
   resource "aws_key_pair" "frontend-key" {
     count =  var.region == "us-east-1" ? 0 : 1
     key_name   = var.key_name
-    public_key = file(var.key_path)
   }
 resource "aws_ebs_volume" "frontend-volume" {
   availability_zone = "${var.region}${var.az}"
