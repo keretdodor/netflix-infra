@@ -7,6 +7,13 @@ pipeline {
         choice(name: 'WORKSPACE', choices: ['default', 'us-east-1'], description: '')
     }
     stages {
+        stage('initializing workspace') {
+            steps {
+                sh '''
+                    terraform --version
+                '''
+            }
+        }   
 
         stage('initializing workspace') {
             steps {
