@@ -1,0 +1,7 @@
+env = "prod"
+region = "us-east-1"
+ami_id = "ami-0e86e20dae9224db8"
+instance_type = "t2.micro"
+key_name   = "ort-20.06.24"
+bucket_name = "becks-bucket-ever-uno"
+az = "b"
