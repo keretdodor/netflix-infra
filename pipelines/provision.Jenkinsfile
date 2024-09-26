@@ -24,14 +24,18 @@ pipeline {
         }    
 
         stage('auto-apply') {
-            steps { 
-                sh '''
+            steps {
+                withCredentials({usernamePassword(credentialsId: 'aws', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCEES_KEY')}) {
+                    sh '''
                     terraform init
                     if [ "$WORKSPACE" == "default" ]; then
                         WORKSPACE="eu-north-1"
                     fi
-                    terraform apply -auto-approve -var-file tf/"$WORKSPACE.$ENV.tfvars"
+                    cd tf
+                    terraform apply -auto-approve -var-file "regions.$WORKSPACE.$ENV.tfvars"
+                   
                 '''
+                }
             }
         }
 
