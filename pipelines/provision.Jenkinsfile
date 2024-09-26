@@ -31,7 +31,9 @@ pipeline {
                     if [ "$WORKSPACE" == "default" ]; then
                         WORKSPACE="eu-north-1"
                     fi
-                    cd tf && terraform apply -auto-approve -var-file "regions.$WORKSPACE.$ENV.tfvars"
+                    cd tf 
+                    terraform init
+                    terraform apply -auto-approve -var-file "regions.$WORKSPACE.$ENV.tfvars"
                     '''
                 }
             }
