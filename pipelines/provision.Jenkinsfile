@@ -34,7 +34,7 @@ pipeline {
                     cd tf
                     terraform apply -auto-approve -var-file "regions.$WORKSPACE.$ENV.tfvars"
                    
-                '''
+                    '''
                 }
             }
         }
