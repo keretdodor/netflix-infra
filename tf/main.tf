@@ -27,6 +27,7 @@ resource "aws_instance" "netflix_app" {
   security_groups = [aws_security_group.netflix_app_sg.name]
   user_data = file("./deploy.sh")
   availability_zone = "${var.region}${var.az}"
+  key_name = var.key_name
 
   tags = {
     Name = "dor-server"
@@ -66,10 +67,6 @@ resource "aws_security_group" "netflix_app_sg" {
   }
 
 }
-  resource "aws_key_pair" "frontend-key" {
-    count =  var.region == "us-east-1" ? 0 : 1
-    key_name   = var.key_name
-  }
 resource "aws_ebs_volume" "frontend-volume" {
   availability_zone = "${var.region}${var.az}"
   size              = 5
