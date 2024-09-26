@@ -11,7 +11,7 @@ pipeline {
         stage('initializing workspace') {
             steps {
                 sh '''
-                    terraform workspace select $WORKSPACE
+                    terraform workspace select $WORKSPACE || terraform workspace new $WORKSPACE
                 '''
             }
         }    
