@@ -24,20 +24,26 @@ provider "aws" {
 resource "aws_instance" "netflix_app" {
   ami           = var.ami_id
   instance_type = var.instance_type
-  security_groups = [aws_security_group.netflix_app_sg.name]
   user_data = file("./deploy.sh")
   availability_zone = "${var.region}${var.az}"
   key_name = var.key_name
+
+  subnet_id                   = module.netflix_app_vpc.public_subnets[1]
+  vpc_security_group_ids      = [aws_security_group.netflix_app_sg.id]
+  associate_public_ip_address = true
 
   tags = {
     Name = "dor-server"
   }
 
-  depends_on = [aws_s3_bucket.frontend-bucket] 
+  depends_on = [aws_s3_bucket.frontend-bucket,
+                aws_security_group.netflix_app_sg
+                ] 
 }
 resource "aws_security_group" "netflix_app_sg" {
   name        = "netflix-app-sg"   # change <your-name> accordingly
   description = "Allow SSH and HTTP traffic"
+  vpc_id      = module.netflix_app_vpc.vpc_id
 
   ingress {
     from_port   = 22
@@ -86,5 +92,23 @@ resource "aws_s3_bucket" "frontend-bucket" {
   tags = {
     Name        = "frontend-bucket-netflix-infra-aa"
     Environment = var.env
+  }
+}
+module "netflix_app_vpc" {
+  source  = "terraform-aws-modules/vpc/aws"
+  version = "5.8.1"
+
+  name = "Bogs"
+  cidr = "10.0.0.0/16"
+
+  azs             = ["${var.region}a", "${var.region}b", "${var.region}c"]
+  private_subnets = ["10.0.1.0/24", "10.0.2.0/24"]
+  public_subnets  = ["10.0.3.0/24", "10.0.4.0/24"]
+  map_public_ip_on_launch = true
+
+  enable_nat_gateway = false
+
+  tags = {
+    Env         = var.env
   }
 }
